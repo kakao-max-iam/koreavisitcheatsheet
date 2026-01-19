@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Korea Trip Cheat Sheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --accent-red: #ff3b5c;
+            --accent-blue: #4dabf7;
+            --accent-green: #51cf66;
+            --accent-yellow: #ffd43b;
+            --accent-purple: #da77f2;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--accent-red) 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, var(--accent-blue) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, var(--accent-purple) 0%, transparent 30%);
+            filter: blur(100px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5%, 5%) rotate(5deg); }
+            50% { transform: translate(-5%, 10%) rotate(-5deg); }
+            75% { transform: translate(10%, -5%) rotate(3deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 32px 0 40px;
+        }
+
+        .flag-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        h1 {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Category Section */
+        .category {
+            margin-bottom: 32px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        .category-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        /* App Cards */
+        .app-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .app-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .app-card:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .app-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            background: linear-gradient(135deg, white 0%, transparent 100%);
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .app-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .essential-badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            background: var(--accent-red);
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .app-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .app-arrow {
+            font-size: 18px;
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+        }
+
+        .app-card:hover .app-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Icon Colors */
+        .icon-naver { background: linear-gradient(135deg, #03C75A 0%, #00A046 100%); }
+        .icon-kakao { background: linear-gradient(135deg, #FEE500 0%, #E5CF00 100%); color: #3C1E1E; }
+        .icon-uber { background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); }
+        .icon-toss { background: linear-gradient(135deg, #0064FF 0%, #0050CC 100%); }
+        .icon-papago { background: linear-gradient(135deg, #1EC800 0%, #19A800 100%); }
+        .icon-korail { background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 100%); }
+        .icon-subway { background: linear-gradient(135deg, #4DABF7 0%, #339AF0 100%); }
+        .icon-coupang { background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%); }
+        .icon-baemin { background: linear-gradient(135deg, #2AC1BC 0%, #22A8A3 100%); }
+        .icon-yogiyo { background: linear-gradient(135deg, #FA0050 0%, #D10043 100%); }
+        .icon-airbnb { background: linear-gradient(135deg, #FF5A5F 0%, #E5484D 100%); }
+        .icon-yanolja { background: linear-gradient(135deg, #FF3478 0%, #E52D6B 100%); }
+        .icon-klook { background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%); }
+        .icon-tmoney { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 16px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .footer-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Entrance animations */
+        .app-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .app-card:nth-child(1) { animation-delay: 0.05s; }
+        .app-card:nth-child(2) { animation-delay: 0.1s; }
+        .app-card:nth-child(3) { animation-delay: 0.15s; }
+        .app-card:nth-child(4) { animation-delay: 0.2s; }
+
+        .category:nth-child(2) .app-card { animation-delay: 0.25s; }
+        .category:nth-child(2) .app-card:nth-child(2) { animation-delay: 0.3s; }
+        .category:nth-child(3) .app-card { animation-delay: 0.35s; }
+        .category:nth-child(3) .app-card:nth-child(2) { animation-delay: 0.4s; }
+        .category:nth-child(4) .app-card { animation-delay: 0.45s; }
+        .category:nth-child(4) .app-card:nth-child(2) { animation-delay: 0.5s; }
+        .category:nth-child(5) .app-card { animation-delay: 0.55s; }
+        .category:nth-child(5) .app-card:nth-child(2) { animation-delay: 0.6s; }
+
+        /* Tooltip */
+        .pro-tip {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--accent-yellow);
+        }
+
+        .pro-tip-icon {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <header>
+            <div class="flag-icon">🇰🇷</div>
+            <h1>Korea Trip Cheat Sheet</h1>
+            <p class="subtitle">Essential apps for your Korean adventure</p>
+        </header>
+
+        <div class="pro-tip">
+            <span class="pro-tip-icon">💡</span>
+            Tip: Download these before you arrive! App stores work better with local network.
+        </div>
+
+        <!-- Navigation & Maps -->
+        <section class="category">
+            <h2 class="category-title">🗺️ Navigation</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/naver-map-navigation/id311867728" class="app-card" target="_blank">
+                    <div class="app-icon icon-naver">N</div>
+                    <div class="app-info">
+                        <div class="app-name">Naver Map <span class="essential-badge">Must Have</span></div>
+                        <div class="app-desc">Best navigation app in Korea</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/kakaomap-korea-no-1-map/id304608425" class="app-card" target="_blank">
+                    <div class="app-icon icon-kakao">K</div>
+                    <div class="app-info">
+                        <div class="app-name">Kakao Map</div>
+                        <div class="app-desc">Great alternative with transit info</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Transportation -->
+        <section class="category">
+            <h2 class="category-title">🚕 Transportation</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/uber-request-a-ride/id368677368" class="app-card" target="_blank">
+                    <div class="app-icon icon-uber">U</div>
+                    <div class="app-info">
+                        <div class="app-name">Uber</div>
+                        <div class="app-desc">Easy taxi booking for foreigners</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/kakao-t/id981110422" class="app-card" target="_blank">
+                    <div class="app-icon icon-kakao">T</div>
+                    <div class="app-info">
+                        <div class="app-name">Kakao T <span class="essential-badge">Must Have</span></div>
+                        <div class="app-desc">Local taxi & mobility app</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/korail-talk/id620533780" class="app-card" target="_blank">
+                    <div class="app-icon icon-korail">🚄</div>
+                    <div class="app-info">
+                        <div class="app-name">Korail Talk</div>
+                        <div class="app-desc">KTX train tickets</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/subway-korea/id325924444" class="app-card" target="_blank">
+                    <div class="app-icon icon-subway">🚇</div>
+                    <div class="app-info">
+                        <div class="app-name">Subway Korea</div>
+                        <div class="app-desc">Metro navigation & schedules</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Communication -->
+        <section class="category">
+            <h2 class="category-title">💬 Communication</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/kakaotalk/id362057947" class="app-card" target="_blank">
+                    <div class="app-icon icon-kakao">💬</div>
+                    <div class="app-info">
+                        <div class="app-name">KakaoTalk <span class="essential-badge">Must Have</span></div>
+                        <div class="app-desc">Korea's #1 messenger app</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/papago-ai-translator/id1147874819" class="app-card" target="_blank">
+                    <div class="app-icon icon-papago">🦜</div>
+                    <div class="app-info">
+                        <div class="app-name">Papago</div>
+                        <div class="app-desc">Best Korean translator</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Food & Delivery -->
+        <section class="category">
+            <h2 class="category-title">🍜 Food & Delivery</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/배달의민족/id378084485" class="app-card" target="_blank">
+                    <div class="app-icon icon-baemin">🍴</div>
+                    <div class="app-info">
+                        <div class="app-name">Baemin (배달의민족)</div>
+                        <div class="app-desc">Popular food delivery</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/coupang-eats/id1445503498" class="app-card" target="_blank">
+                    <div class="app-icon icon-coupang">🛵</div>
+                    <div class="app-info">
+                        <div class="app-name">Coupang Eats</div>
+                        <div class="app-desc">Fast delivery service</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Payment & Shopping -->
+        <section class="category">
+            <h2 class="category-title">💳 Payment & Shopping</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/toss/id839333328" class="app-card" target="_blank">
+                    <div class="app-icon icon-toss">💙</div>
+                    <div class="app-info">
+                        <div class="app-name">Toss</div>
+                        <div class="app-desc">Easy payments & money transfer</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/coupang/id454434967" class="app-card" target="_blank">
+                    <div class="app-icon icon-coupang">🛒</div>
+                    <div class="app-info">
+                        <div class="app-name">Coupang</div>
+                        <div class="app-desc">Korea's Amazon - fast delivery</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Accommodation & Activities -->
+        <section class="category">
+            <h2 class="category-title">🏨 Stay & Activities</h2>
+            <div class="app-grid">
+                <a href="https://apps.apple.com/app/yanolja/id499523498" class="app-card" target="_blank">
+                    <div class="app-icon icon-yanolja">🏨</div>
+                    <div class="app-info">
+                        <div class="app-name">Yanolja</div>
+                        <div class="app-desc">Hotels & accommodations</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+                <a href="https://apps.apple.com/app/klook-travel-experiences/id961351324" class="app-card" target="_blank">
+                    <div class="app-icon icon-klook">🎫</div>
+                    <div class="app-info">
+                        <div class="app-name">Klook</div>
+                        <div class="app-desc">Tours, tickets & experiences</div>
+                    </div>
+                    <span class="app-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-text">Made with ❤️ for travelers to <strong>South Korea</strong></p>
+        </footer>
+    </div>
+</body>
+</html>
